@@ -1,0 +1,10 @@
+#!/bin/bash
+
+while true; do
+	mem=$(ps ef -o pid,rss | grep "$(pgrep -x camindicatord)" | grep -oE "[^ ]+$")
+	wait
+	if [[ "$mem" -ge 4096 ]]; then
+		echo "# Monitor alert: Consumming more than 4 MiB of RAM"
+		kill $(pgrep -x camindicatord)
+	fi
+done

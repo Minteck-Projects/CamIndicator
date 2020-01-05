@@ -1,0 +1,188 @@
+#!/bin/bash
+echo "CamIndicator Loading..."
+echo "[$(date +'%H:%M:%S %d/%m/%Y')] > CamIndicator 1.0 started"
+. ./camindicator.conf
+latest=""
+message=""
+TIMEFORMAT="%R"
+
+./cami-monitor&
+./cami-monitor&
+./cami-monitor&
+./cami-monitor&
+./cami-monitor&
+if [[ $lang == "en" ]]; then
+    if [[ $mode == "camera" ]]; then
+        lang_icon="totem"
+    	lang_prou_title="Camera Being Used"
+    	lang_prou_desc1="A system process is currently using camera"
+    	lang_prou_desc2="located at"
+    	lang_deny_title="Camera Access Denied"
+    	lang_deny_desc1="A system process tried to access camera used by another process"
+    	lang_prod_title="Camera No Longer Used"
+    	lang_prod_desc1="The system process that was using the camera is no longer using it"
+    	lang_errm_title="CamIndicator"
+	    lang_errm_notfd="Camera specified in config file cannot be found"
+	    lang_name="Camera"
+    fi
+    if [[ $mode == "tty" ]]; then
+        lang_icon="terminal"
+    	lang_prou_title="Terminal Being Used"
+    	lang_prou_desc1="A system process is currently using the terminal you're monitoring"
+    	lang_prou_desc2="located at"
+    	lang_deny_title="Terminal Used by Multiple Processes"
+    	lang_deny_desc1="Multiple system processes are using the terminal you're monitoring"
+    	lang_prod_title="Terminal No Longer Used"
+    	lang_prod_desc1="The system process that was using the terminal you're monitoring is no longer using it"
+    	lang_errm_title="CamIndicator, Terminal Mode"
+	    lang_errm_notfd="Terminal specified in config file cannot be found"
+	    lang_name="Terminal"
+    fi
+    if [[ $mode == "disk" ]]; then
+        lang_icon="folder"
+    	lang_prou_title="Disk Being Used"
+    	lang_prou_desc1="A system process is currently using the disk you're monitoring"
+    	lang_prou_desc2="located at"
+    	lang_deny_title="Disk Used by Multiple Processes"
+    	lang_deny_desc1="Multiple system processes are using the disk you're monitoring"
+    	lang_prod_title="Disk No Longer Used"
+    	lang_prod_desc1="The system process that was using the disk you're monitoring is no longer using it"
+    	lang_errm_title="CamIndicator, Disk Mode"
+	    lang_errm_notfd="Disk specified in config file cannot be found"
+	    lang_name="Disk"
+    fi
+    if [[ $mode != "camera" && $mode != "tty" && $mode != "disk" ]]; then
+        echo "" | ./camindicator-secure-notify --stdin /usr/camindicator-notify --app-name=CamIndicator "CamIndicator" "Mode specified in config is unrecognized"
+        echo "[$(date +'%H:%M:%S %d/%m/%Y')] > Mode specified in config is unrecognized"
+        exit
+    fi
+fi
+
+if [[ $lang == "fr" ]]; then
+    if [[ $mode == "camera" ]]; then
+    	lang_icon="totem"
+        lang_prou_title="Caméra en cours d'utilisation"
+        lang_prou_desc1="Un processus système utilise actuellement votre caméra"
+        lang_prou_desc2="situé à"
+        lang_deny_title="Accès à la caméra refusé"
+        lang_deny_desc1="Un processus système à tenté d'accéder à la caméra, mais elle est déjà en cours d'utilisation"
+        lang_prod_title="Caméra plus utilisée"
+        lang_prod_desc1="Le processus système qui utilisait votre caméra ne l'utilise plus"
+	    lang_errm_title="CamIndicator"
+    	lang_errm_notfd="La caméra spécifiée dans la configuration est introuvable"
+    	lang_name="Camera"
+    fi
+    if [[ $mode == "tty" ]]; then
+        lang_icon="terminal"
+    	lang_prou_title="Terminal en cours d'utilisation"
+    	lang_prou_desc1="Un processus système utilise actuellement le terminal que vous surveillez"
+    	lang_prou_desc2="situé à"
+    	lang_deny_title="Terminal utilisé par plusieurs processus"
+    	lang_deny_desc1="Plusieurs processus sytème utilisent actuellement le terminal que vous surveillez"
+    	lang_prod_title="Terminal plus utilisé"
+    	lang_prod_desc1="Le processus système qui utilisait le terminal que vous surveillez ne l'utilise plus"
+    	lang_errm_title="CamIndicator, mode Terminal"
+	    lang_errm_notfd="Le terminal spécifié dans la configuration est introuvable"
+	    lang_name="Terminal"
+    fi
+    if [[ $mode == "disk" ]]; then
+        lang_icon="folder"
+    	lang_prou_title="Disque en cours d'utilisation"
+    	lang_prou_desc1="Un processus système utilise actuellement le disque que vous surveillez"
+    	lang_prou_desc2="situé à"
+    	lang_deny_title="Disque utilisé par plusieurs processus"
+    	lang_deny_desc1="Plusieurs processus sytème utilisent actuellement le disque que vous surveillez"
+    	lang_prod_title="Disque plus utilisé"
+    	lang_prod_desc1="Le processus système qui utilisait le disque que vous surveillez ne l'utilise plus"
+    	lang_errm_title="CamIndicator, mode Disque"
+	    lang_errm_notfd="Le disque spécifié dans la configuration est introuvable"
+	    lang_name="Disk"
+    fi
+    if [[ $mode != "camera" && $mode != "tty" && $mode != "disk" ]]; then
+        echo "" | ./camindicator-secure-notify --stdin /usr/camindicator-notify --app-name=CamIndicator "CamIndicator" "Le mode spécifié dans la configuration n'a pas été reconnu"
+        echo "[$(date +'%H:%M:%S %d/%m/%Y')] > Mode specified in config is unrecognized"
+        exit
+    fi
+fi
+
+if [[ $lang == "es" ]]; then
+    if [[ $mode == "camera" ]]; then
+        lang_icon="totem"
+        lang_prou_title="Cámara en uso"
+        lang_prou_desc1="Un proceso del sistema está usando su cámara actualmente"
+        lang_prou_desc2="ubicado en"
+        lang_deny_title="Acceso a la cámara denegado"
+        lang_deny_desc1="Un proceso del sistema intentó acceder a la cámara, pero ya está en uso"
+        lang_prod_title="La cámara más usada"
+        lang_prod_desc1="El proceso del sistema que usó su cámara ya no la usa"
+        lang_errm_title="CamIndicator"
+        lang_errm_notfd="No se encuentra la cámara especificada en la configuración"
+        lang_name="Camera"
+    fi
+    if [[ $mode == "tty" ]]; then
+        lang_icon="terminal"
+        lang_prou_title="Terminal en uso"
+        lang_prou_desc1="Un proceso del sistema está utilizando el terminal que está monitoreando"
+        lang_prou_desc2="ubicado en"
+        lang_deny_title="Terminal utilizada por varios procesos"
+        lang_deny_desc1="Varios procesos del sistema utilizan actualmente el terminal que está monitoreando"
+        lang_prod_title="Terminal más usado"
+        lang_prod_desc1="El proceso del sistema que usó el dispositivo que está monitoreando ya no lo usa"
+        lang_errm_title="CamIndicator, modo Terminal"
+        lang_errm_notfd="El terminal especificado en la configuración no se puede encontrar"
+        lang_name="Terminal"
+    fi
+    if [[ $mode == "disk" ]]; then
+        lang_icon="carpeta"
+        lang_prou_title="Disco en uso"
+        lang_prou_desc1="Un proceso del sistema está utilizando actualmente el disco que está monitoreando"
+        lang_prou_desc2="ubicado en"
+        lang_deny_title="Disco usado por varios procesos"
+        lang_deny_desc1="Varios procesos del sistema actualmente usan el disco que está monitoreando"
+        lang_prod_title="Disco más usado"
+        lang_prod_desc1="El proceso del sistema que usó el disco que está monitoreando ya no lo usa"
+        lang_errm_title="CamIndicator, modo disco"
+        lang_errm_notfd="El disco especificado en la configuración no se puede encontrar"
+        lang_name="Disk"
+    fi
+    if [[ $mode != "camera" && $mode != "tty" && $mode != "disk" ]]; then
+        echo "" | ./camindicator-secure-notify --stdin /usr/camindicator-notify --app-name=CamIndicator "CamIndicator" "El modo especificado en la configuración no fue reconocido"
+        echo "[$(date +'%H:%M:%S %d/%m/%Y')]> Mode specified in config is unrecognized"
+        exit
+    fi
+fi
+
+
+if [ ! -c $device ]; then
+    echo "" | ./camindicator-secure-notify --stdin /usr/camindicator-notify --icon=$lang_icon --app-name=CamIndicator "$lang_errm_title" "$lang_errm_notfd ($device)"
+    echo "[$(date +'%H:%M:%S %d/%m/%Y')] > Device not found"
+    exit
+fi
+
+while true
+do
+	if [[ ! $(./camindicator-detect -t /dev/video0) == "" ]]; then
+		if [[ ! $latest =~ $(./camindicator-detect -t /dev/video0) || $message != "yes" ]]; then
+			# Notify that app is now using camera
+			latest=$(./camindicator-detect -t /dev/video0)
+			message="yes"
+			if [[ ! $(readlink /proc/$(./camindicator-detect -t /dev/video0)/exe) == "" ]]; then
+				echo "" | ./camindicator-secure-notify --stdin /usr/camindicator-notify --icon=$lang_icon --app-name=CamIndicator "$lang_prou_title" "$lang_prou_desc1 ($(basename $(readlink /proc/$(./camindicator-detect -t /dev/video0)/exe)), $lang_prou_desc2 $(readlink /proc/$(./camindicator-detect -t /dev/video0)/exe))"
+				echo "[$(date +'%H:%M:%S %d/%m/%Y')] > $lang_name is being used"
+			else
+				echo "" | ./camindicator-secure-notify --stdin /usr/camindicator-notify --icon=$lang_icon --app-name=CamIndicator "$lang_deny_title" "$lang_deny_desc1"
+                                echo "[$(date +'%H:%M:%S %d/%m/%Y')] > $lang_name is trying to be used by another app"
+			fi
+		fi
+	else
+		if [[ ! $latest =~ $(./camindicator-detect -t /dev/video0) || $message != "no" ]]; then
+			# Notify that app isn't using camera anymore
+			latest=$(./camindicator-detect -t /dev/video0)
+			message="no"
+			echo "" | ./camindicator-secure-notify --stdin /usr/camindicator-notify --icon=$lang_icon --app-name=CamIndicator "$lang_prod_title" "$lang_prod_desc1"
+			echo "[$(date +'%H:%M:%S %d/%m/%Y')] > $lang_name is no longer used"
+		fi
+	fi
+	echo "[$(date +'%H:%M:%S %d/%m/%Y')] > $lang_name fetch done for $device, sum is $(echo $(uuidgen) | md5sum -b | awk '{print $1;}')"
+	./camindicator-suspend 1
+done

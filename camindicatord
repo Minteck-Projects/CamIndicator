@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# CamIndicator background daemon and watchdog
+
+#echo "" | ./camindicator-wrapper --stdin --user=camindicator ./camindicator
+#!/usr/bin/env bash
+
+echo "# Daemon started"
+PIDFILE=./bgprocess.pid
+#if test -f "$PIDFILE"; then exit; fi
+  echo "# Killing already existing instance"
+  echo $$ > "$PIDFILE"
+  #trap "rm '$PIDFILE'" EXIT SIGTERM
+  trap 'echo "" | ./camindicator-wrapper --stdin --user=camindicator pkill camindicator' SIGTERM SIGKILL
+  echo "# Start loop"
+  while true; do
+    echo "# Launching new instance as camindicator user"
+    #launch your app here
+    echo "" | ./camindicator-wrapper --stdin --user=camindicator ./camindicator&
+    wait # needed for trap to work
+    echo "# Checking how it was stopped"
+    if [ "$#" -lt "128" ]; then
+        echo "# Not killed/No kill detected"
+        if [ "$#" -eq "0" ]; then
+            echo "# No error/killed, exiting"
+            echo "" | ./camindicator-wrapper --stdin --user=camindicator pkill camindicator
+            exit
+        fi
+    else
+        echo "# Killed, exiting"
+        echo "" | ./camindicator-wrapper --stdin --user=camindicator pkill camindicator
+        exit
+    fi
+  done

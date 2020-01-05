@@ -1,0 +1,46 @@
+if [[ $lang == "fr" ]]; then
+    if [[ $mode == "camera" ]]; then
+    	lang_icon="totem"
+        lang_prou_title="Caméra en cours d'utilisation"
+        lang_prou_desc1="Un processus système utilise actuellement votre caméra"
+        lang_prou_desc2="situé à"
+        lang_deny_title="Accès à la caméra refusé"
+        lang_deny_desc1="Un processus système à tenté d'accéder à la caméra, mais elle est déjà en cours d'utilisation"
+        lang_prod_title="Caméra plus utilisée"
+        lang_prod_desc1="Le processus système qui utilisait votre caméra ne l'utilise plus"
+	    lang_errm_title="CamIndicator"
+    	lang_errm_notfd="La caméra spécifiée dans la configuration est introuvable"
+    	lang_name="Camera"
+    fi
+    if [[ $mode == "tty" ]]; then
+        lang_icon="terminal"
+    	lang_prou_title="Terminal en cours d'utilisation"
+    	lang_prou_desc1="Un processus système utilise actuellement le terminal que vous surveillez"
+    	lang_prou_desc2="situé à"
+    	lang_deny_title="Terminal utilisé par plusieurs processus"
+    	lang_deny_desc1="Plusieurs processus sytème utilisent actuellement le terminal que vous surveillez"
+    	lang_prod_title="Terminal plus utilisé"
+    	lang_prod_desc1="Le processus système qui utilisait le terminal que vous surveillez ne l'utilise plus"
+    	lang_errm_title="CamIndicator, mode Terminal"
+	    lang_errm_notfd="Le terminal spécifié dans la configuration est introuvable"
+	    lang_name="Terminal"
+    fi
+    if [[ $mode == "disk" ]]; then
+        lang_icon="folder"
+    	lang_prou_title="Disque en cours d'utilisation"
+    	lang_prou_desc1="Un processus système utilise actuellement le disque que vous surveillez"
+    	lang_prou_desc2="situé à"
+    	lang_deny_title="Disque utilisé par plusieurs processus"
+    	lang_deny_desc1="Plusieurs processus sytème utilisent actuellement le disque que vous surveillez"
+    	lang_prod_title="Disque plus utilisé"
+    	lang_prod_desc1="Le processus système qui utilisait le disque que vous surveillez ne l'utilise plus"
+    	lang_errm_title="CamIndicator, mode Disque"
+	    lang_errm_notfd="Le disque spécifié dans la configuration est introuvable"
+	    lang_name="Disk"
+    fi
+    if [[ $mode != "camera" && $mode != "tty" && $mode != "disk" ]]; then
+        notify-send --app-name=CamIndicator "CamIndicator" "Le mode spécifié dans la configuration n'a pas été reconnu"
+        echo "[$(date +'%H:%M:%S %d/%m/%Y')] > Mode specified in config is unrecognized"
+        exit
+    fi
+fi
