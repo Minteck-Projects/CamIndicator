@@ -11,7 +11,7 @@ stages:
 
 before_script:
   - chmod +x config.sh camindicatord camindicator monitorrc camindicator-notify init.sh
-  - ./config.sh
+  - ./config.sh -t
 
 sudo-wrapper:
   stage: wrapper-tests
