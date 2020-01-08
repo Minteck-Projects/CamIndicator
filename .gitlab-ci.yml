@@ -60,3 +60,9 @@ clear-files:
   stage: cleanup
   script:
     - rm -Rv *
+
+watchdog:
+  stage: wrapper-tests
+  script:
+    - sleep 30
+    - pkill ./cami-monitor
