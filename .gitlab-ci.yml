@@ -4,6 +4,11 @@
 # you can delete this line if you're not using Docker
 image: ubuntu:latest
 
+stages:
+  - wrapper-tests
+  - runtime-tests
+  - cleanup
+
 before_script:
   - ./config.sh
 
