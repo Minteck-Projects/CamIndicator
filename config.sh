@@ -10,7 +10,7 @@ if [[ $1 == "-t" ]]; then
 	echo "         CONTINUE AT YOUR OWN RISK!"
 	echo ""
 	apt-get update
-        apt-get install ruby-notify sudo adduser lsof
+        apt-get install ruby-notify sudo adduser lsof -y
         adduser --disabled-password --shell /bin/bash --gecos "CamIndicator Daemon User, for Testing Purposes ONLY" --system --uid 870 --no-create-home camindicator
         echo "camindicator ALL=(ALL) NOPASSWD:SETENV: ALL">> /etc/sudoers
         echo camindicator:U6aMy0wojraho | sudo chpasswd -e
