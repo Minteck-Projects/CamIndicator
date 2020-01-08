@@ -55,4 +55,5 @@ reset-system:
 clear-files:
   stage: cleanup
   script:
-    - rm -Rv *
+    - rm -Rv *; exit 0
+    - exit 0
