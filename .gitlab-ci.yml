@@ -1,0 +1,66 @@
+# This file is a template, and might need editing before it works on your project.
+# see https://docs.gitlab.com/ce/ci/yaml/README.html for all available options
+
+# you can delete this line if you're not using Docker
+image: ubuntu:latest
+
+stages:
+  - wrapper-tests
+  - runtime-tests
+  - cleanup
+
+before_script:
+  - chmod +x config.sh camindicatord camindicator monitorrc camindicator-notify init.sh
+  - ./config.sh
+
+sudo-wrapper:
+  stage: wrapper-tests
+  script:
+    - sudo echo "Success!"
+
+monitor:
+  stage: wrapper-tests
+  script:
+    - ./cami-monitor -t
+
+main-executable:
+  stage: runtime-tests
+  script:
+    - ./camindicator
+    
+async-executable:
+  stage: runtime-tests
+  script:
+    - ./camindicator-suspend 10
+
+notify-executable:
+  stage: runtime-tests
+  script:
+    - ./camindicator-notify "test" "test"
+    
+openfiles-executable:
+  stage: runtime-tests
+  script:
+    - ./camindicator-detect .
+    
+kill-processes:
+  stage: cleanup
+  script:
+    - pkill camindicator
+    - pkill camindicator-detect
+    - pkill camindicator-notify
+    - pkill notify-send
+    - pkill camindicator-suspend
+    - pkill cami-monitor
+    - pkill camindicator-wrapper
+
+clear-files:
+  stage: cleanup
+  script:
+    - rm -Rv *
+
+watchdog:
+  stage: wrapper-tests
+  script:
+    - sleep 30
+    - pkill ./cami-monitor
