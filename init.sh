@@ -23,8 +23,8 @@ if [[ $1 == "stop" ]]; then
 	echo "Stopping CamIndicator Daemon..."
 	pkill camindicatord
 #	pkill camindicator
-echo "" | ./camindicator-wrapper --stdin --user=camindicator pkill camindicator
-echo "" | ./camindicator-wrapper --stdin --user=camindicator pkill cami-monitor
+        pkill camindicator
+        pkill cami-monitor
 	exit
 fi
 
