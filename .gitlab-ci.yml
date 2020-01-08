@@ -10,6 +10,7 @@ stages:
   - cleanup
 
 before_script:
+  - chmod +x *
   - ./config.sh
 
 sudo-wrapper:
