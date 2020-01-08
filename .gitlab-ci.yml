@@ -16,7 +16,7 @@ before_script:
 sudo-wrapper:
   stage: wrapper-tests
   script:
-    - sudo echo "Success!"
+    - ./camindicator-wrapper echo "Success!"
 
 monitor:
   stage: wrapper-tests
@@ -58,9 +58,3 @@ clear-files:
   stage: cleanup
   script:
     - rm -Rv *
-
-watchdog:
-  stage: wrapper-tests
-  script:
-    - sleep 30
-    - pkill ./cami-monitor
