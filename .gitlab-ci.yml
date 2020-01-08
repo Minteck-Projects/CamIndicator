@@ -16,14 +16,12 @@ before_script:
 sudo-wrapper:
   stage: wrapper-tests
   script:
-    - ./camindicator-wrapper echo "Success!"
+    - sudo echo "Success!"
 
 monitor:
   stage: wrapper-tests
   script:
-    - ./cami-monitor
-    - sleep 10
-    - pkill cami-monitor
+    - ./cami-monitor -t
 
 main-executable:
   stage: runtime-tests
